@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UUID Generator</title>
+  <meta name="description" content="UUIDを生成してコピーできる簡単なツール。">
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px;
+    }
+    #uuid {
+      font-size: 18px;
+      background: #f0f0f0;
+      padding: 20px;
+      border-radius: 8px;
+      word-wrap: break-word;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="uuid">ここにUUIDが表示されます</div>
+  <button onclick="generate()">UUIDを生成</button>
+
+  <script>
+    function generateUUID() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0,
+              v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+    function generate() {
+      const uuid = generateUUID();
+      document.getElementById('uuid').textContent = uuid;
+      navigator.clipboard.writeText(uuid);
+    }
+
+    window.onload = generate;
+  </script>
+</body>
+</html>
