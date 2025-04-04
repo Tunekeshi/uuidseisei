@@ -4,14 +4,106 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UUID Generator</title>
+  <style>
+    /* 背景色と基本的なフォント */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f7fc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    /* コンテナのスタイル */
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* ヘッダー */
+    h1 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    /* 入力フィールド */
+    input[type="number"] {
+      width: 60px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-right: 10px;
+      text-align: center;
+    }
+
+    /* ボタン */
+    button {
+      background-color: #4CAF50; /* 緑色 */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049; /* ホバー時に少し濃くなる */
+    }
+
+    /* UUIDリストのスタイル */
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    button.copy-btn {
+      background-color: #007bff;
+      padding: 5px 10px;
+      font-size: 14px;
+      border-radius: 5px;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button.copy-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
-  <h1>UUID Generator</h1>
-  <label for="count">How many UUIDs do you want to generate?</label>
-  <input type="number" id="count" min="1" max="50" value="5">
-  <button onclick="generateUUID()">Generate</button>
 
-  <ul id="uuid-list"></ul>
+  <div class="container">
+    <h1>UUID Generator</h1>
+    <label for="count">How many UUIDs do you want to generate?</label>
+    <input type="number" id="count" min="1" max="50" value="5">
+    <button onclick="generateUUID()">Generate</button>
+
+    <ul id="uuid-list"></ul>
+  </div>
 
   <script>
     function generateUUID() {
@@ -26,6 +118,7 @@
 
         // Create copy button
         let copyButton = document.createElement('button');
+        copyButton.className = 'copy-btn';
         copyButton.textContent = 'Copy';
         copyButton.onclick = function() {
           navigator.clipboard.writeText(uuid).then(() => {
@@ -38,5 +131,6 @@
       }
     }
   </script>
+
 </body>
 </html>
