@@ -1,63 +1,42 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UUID Generator</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      padding: 50px;
-    }
-    #uuid-list {
-      font-size: 18px;
-      margin-bottom: 20px;
-      background: #eee;
-      padding: 20px;
-      border-radius: 10px;
-      word-wrap: break-word;
-      max-height: 300px;
-      overflow-y: auto;
-    }
-    button, input {
-      font-size: 16px;
-      padding: 10px;
-      margin: 10px;
-    }
-  </style>
 </head>
 <body>
   <h1>UUID Generator</h1>
-  <label for="count">生成するUUIDの数（1〜50）:</label>
-  <input type="number" id="count" value="1" min="1" max="50">
-  <button onclick="generate()">UUID生成</button>
+  <label for="count">How many UUIDs do you want to generate?</label>
+  <input type="number" id="count" min="1" max="50" value="5">
+  <button onclick="generateUUID()">Generate</button>
 
-  <div id="uuid-list"></div>
+  <ul id="uuid-list"></ul>
 
   <script>
     function generateUUID() {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-      });
-    }
-
-    function generate() {
-      const count = document.getElementById('count').value;
-      const uuidList = document.getElementById('uuid-list');
-      uuidList.innerHTML = ''; // 既存のUUIDを消去
+      let count = document.getElementById('count').value;
+      let uuidList = document.getElementById('uuid-list');
+      uuidList.innerHTML = "";  // Clear existing UUIDs
 
       for (let i = 0; i < count; i++) {
-        const uuid = generateUUID();
-        const div = document.createElement('div');
-        div.textContent = uuid;
-        uuidList.appendChild(div);
-        navigator.clipboard.writeText(uuid);  // 最後に生成したUUIDをコピー
+        let uuid = crypto.randomUUID();
+        let li = document.createElement('li');
+        li.textContent = uuid;
+
+        // Create copy button
+        let copyButton = document.createElement('button');
+        copyButton.textContent = 'Copy';
+        copyButton.onclick = function() {
+          navigator.clipboard.writeText(uuid).then(() => {
+            alert('UUID copied!');
+          });
+        };
+
+        li.appendChild(copyButton);
+        uuidList.appendChild(li);
       }
     }
-
-    window.onload = generate;
   </script>
 </body>
 </html>
